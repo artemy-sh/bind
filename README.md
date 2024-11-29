@@ -12,7 +12,7 @@
 1. **Клонируйте репозиторий:**
    ```bash
    git clone https://github.com/artemy-sh/bind
-   cd bitrix-docker
+   cd bind
    ```
 
 2. **Скопируйте пример конфигурации:**
@@ -39,6 +39,7 @@
 - `mysql.cnf` — параметры MySQL.
 - `php.ini` — настройки PHP.
 - `mime.types` — MIME-типы для обработки запросов.
+- `docker-compose.yml` — настройки сервисов (порты для mysql и nginx).
 
 ## Лицензия
 Проект распространяется под лицензией [MIT](LICENSE).
