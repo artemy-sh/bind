@@ -1,0 +1,59 @@
+services:
+  bitrix:
+    build:
+      context: .
+    volumes:
+      - ./www:/var/www/html/
+      - ./php.ini:/usr/local/etc/php/conf.d/custom.ini
+      - sessions_data:/var/lib/php/sessions
+    depends_on:
+      - mysql
+    networks:
+      - bitrix-network
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./www:/var/www/html/
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./mime.types:/etc/nginx/mime.types
+      - sessions_data:/var/lib/php/sessions
+    ports:
+      - "80:80"
+    depends_on:
+      - bitrix
+    networks:
+      - bitrix-network
+
+  mysql:
+    image: mysql:latest
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+    networks:
+      - bitrix-network
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+    env_file:
+      - .env
+    depends_on:
+      - mysql
+    networks:
+      - bitrix-network
+
+volumes:
+  mysql_data:
+  sessions_data:
+
+
+networks:
+  bitrix-network:
+    driver: bridge

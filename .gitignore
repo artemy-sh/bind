@@ -1,0 +1,15 @@
+# Environment variables
+.env
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# MacOS files
+.DS_Store
+Thumbs.db
+
+# Bitrix
+www/bitrix/
